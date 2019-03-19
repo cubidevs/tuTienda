@@ -1,6 +1,8 @@
 package com.example.tutienda.register
 
 import android.widget.Toast
+import com.example.tutienda.R
+import com.example.tutienda.Util.ValidateFields
 import com.example.tutienda.register.ui.RegisterFragment
 
 class RegisterPresenter() :IRegisterMVP.presenter{
@@ -15,7 +17,17 @@ class RegisterPresenter() :IRegisterMVP.presenter{
     }
 
     override fun registerButtonClicked() {
-        if(view.getFullName().trim() == ""){
+
+        var validateCode= ValidateFields().getValideRegister(view.getFullName(),view.getEmail())
+
+        if (validateCode==ValidateFields().CORRECT_DATA){
+            view.showSucces("Todo Bien")
+        }else{
+            ValidateFields().setErrorField(validateCode, view.getView())
+        }
+
+
+        /*if(view.getFullName().trim() == ""){
             view.showError("Nombre")
         }else if(view.getEmail().trim() == ""){
             view.showError("Email")
@@ -23,10 +35,11 @@ class RegisterPresenter() :IRegisterMVP.presenter{
             view.showError("Celular")
         }else if(view.getPassword().trim() == ""){
             view.showError("Clave")
+
+
         }else if(view.getRepeatPassword().trim() == view.getPassword().trim()){
             view.showError("No Coinciden")
-        }
-
+        }*/
     }
 
 }

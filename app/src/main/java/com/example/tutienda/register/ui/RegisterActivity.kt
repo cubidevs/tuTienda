@@ -17,7 +17,6 @@ class RegisterActivity : AppCompatActivity() {
         val fragmentManager: FragmentManager = supportFragmentManager
         var fragment:Fragment? =fragmentManager.findFragmentById(R.id.flRegister)
 
-
         if(fragment==null){
             fragment=RegisterFragment()
             fragmentManager.beginTransaction().replace(R.id.flRegister,fragment).commit()

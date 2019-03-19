@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_register.view.*
 class RegisterFragment : Fragment(),IRegisterMVP.view {
 
 
+
     private lateinit var viewFragment:View
     private lateinit var presenter:IRegisterMVP.presenter
 
@@ -35,9 +36,6 @@ class RegisterFragment : Fragment(),IRegisterMVP.view {
 
         }
 
-
-
-
         return viewFragment
 
 
@@ -46,11 +44,17 @@ class RegisterFragment : Fragment(),IRegisterMVP.view {
     override fun getFullName():String = etFullName.text.toString()
     override fun getEmail():String = etEmail.text.toString()
     override fun getCell():String = etCellPhone.text.toString()
-    override fun getPassword():String = etPassword.text.toString()
-    override fun getRepeatPassword():String = etRepeatPassword.text.toString()
+    override fun getPassword():String = etRegisterPassword.text.toString()
+    override fun getRepeatPassword():String = etRegisterPassword.text.toString()
+    override fun getView(): View =viewFragment
 
     override fun showError(errorMessage: String) {
-            etFullName.error="Debe digitar algo no se"
-            Toast.makeText(activity?.applicationContext,"Debe digitar el $errorMessage",Toast.LENGTH_SHORT).show()
+           /* etFullName.error="Debe digitar algo no se"
+            Toast.makeText(activity?.applicationContext,"Debe digitar el $errorMessage",Toast.LENGTH_SHORT).show()*/
+
+    }
+    override fun showSucces(succesMessage: String) {
+        Toast.makeText(activity?.applicationContext,succesMessage,Toast.LENGTH_SHORT).show()
+
     }
 }

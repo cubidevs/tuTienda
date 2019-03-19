@@ -1,5 +1,7 @@
 package com.example.tutienda.register
 
+import android.view.View
+
 interface IRegisterMVP {
 
     interface view{
@@ -8,7 +10,9 @@ interface IRegisterMVP {
         fun getCell(): String
         fun getPassword(): String
         fun getRepeatPassword(): String
+        fun getView(): View
         fun showError(errorMessage: String)
+        fun showSucces(succesMessage:String)
     }
     interface presenter{
         fun registerButtonClicked()
