@@ -45,8 +45,9 @@ class RegisterFragment : Fragment(),IRegisterMVP.view {
     override fun getEmail():String = etEmail.text.toString()
     override fun getCell():String = etCellPhone.text.toString()
     override fun getPassword():String = etRegisterPassword.text.toString()
-    override fun getRepeatPassword():String = etRegisterPassword.text.toString()
+    override fun getRepeatPassword():String = etRegisterRepeatPassword.text.toString()
     override fun getView(): View =viewFragment
+    override fun getConditions(): Boolean = cbConditions.isChecked
 
     override fun showError(errorMessage: String) {
            /* etFullName.error="Debe digitar algo no se"

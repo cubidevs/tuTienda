@@ -13,6 +13,7 @@ interface IRegisterMVP {
         fun getView(): View
         fun showError(errorMessage: String)
         fun showSucces(succesMessage:String)
+        fun getConditions():Boolean
     }
     interface presenter{
         fun registerButtonClicked()
