@@ -1,23 +1,16 @@
 package com.example.tutienda.register
 
-import android.graphics.Bitmap
 import android.net.Uri
 import com.example.tutienda.register.model.User
 
-import com.google.firebase.auth.AuthResult
-import com.google.android.gms.tasks.OnCompleteListener
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import android.support.annotation.NonNull
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.storage.UploadTask
 import com.google.android.gms.tasks.OnSuccessListener
-import java.io.File
-import com.google.firebase.auth.FirebaseUser
-
-
+import com.google.firebase.database.FirebaseDatabase
 
 
 class RegisterRepository:IRegisterRepository{
@@ -31,37 +24,58 @@ class RegisterRepository:IRegisterRepository{
     constructor(model:IRegisterMVP.model){
         this.model=model
     }
-´
-    override fun createUser(user: User) {
+
+    override fun createUser(user: User, uriPhoto: Uri) {
+
         mAuth = FirebaseAuth.getInstance()
         mAuth!!.createUserWithEmailAndPassword(user.email, user.password)
-            .addOnCompleteListener(OnCompleteListener<AuthResult> { task ->
-                if (task.isSuccessful) {
-                     val currentUser = mAuth!!.currentUser
-                     idUser=currentUser!!.uid
-                     nameUser=user.fullName
-                     model.userCreated(user)
+            .addOnCompleteListener {
+                    task ->
+                    if (task.isComplete) {
+                         model.userCreated(user,uriPhoto)
+
                 } else {
                    // model.sendErrorMessage()
                     Log.d("ERROR",task.exception.toString())
                 }
 
-            })
+            }
     }
-    override fun savePhoto(urlPhoto: Uri) {
-        mStorageRef = FirebaseStorage.getInstance().reference
-        val file = nameUser
-        val riversRef = FirebaseStorage.getInstance().getReference("/userProfilePicture/$idUser/$file")
+    override fun savePhoto(uriPhoto: Uri, user: User) {
 
-        riversRef.putFile(urlPhoto)
-            .addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
-                // Get a URL to the uploaded content
-                val downloadUrl = taskSnapshot.getDownloadUrl()
-            })
-            .addOnFailureListener(OnFailureListener {
-                // Handle unsuccessful uploads
-                // ...
-            })
+        if (uriPhoto !=null){
+            mStorageRef = FirebaseStorage.getInstance().reference
+            val file = nameUser
+            val ref = FirebaseStorage.getInstance().getReference("/userProfilePicture/${mAuth!!.currentUser!!.uid}/$file")
+
+            ref.putFile(uriPhoto)
+                .addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot ->
+                    ref.downloadUrl.addOnSuccessListener {
+                        it.toString()
+                        Log.d("RegistroActivity","Ubicacion del archivo: $it")
+                        var urlPhoto=it.toString()
+                        saveUserInDataBase(urlPhoto,user)
+                    }
+                })
+                .addOnFailureListener(OnFailureListener {
+                    // Handle unsuccessful uploads
+                    // ...
+                })
+        }else{
+            saveUserInDataBase("NoPhoto",user)
+        }
+
+    }
+
+    fun saveUserInDataBase(urlPhoto:String,user:User){
+        val uid=FirebaseAuth.getInstance().uid ?:""
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        user.urlPhoto=urlPhoto
+        user.password=""
+        ref.setValue(user)
+            .addOnSuccessListener {
+                Log.d("USUARIO_CREADO",user.toString())
+            }
     }
 
 }

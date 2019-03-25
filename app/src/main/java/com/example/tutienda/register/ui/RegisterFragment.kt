@@ -2,6 +2,7 @@ package com.example.tutienda.register.ui
 
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -44,9 +45,14 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
         viewFragment.ivProfilePhoto.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             intent.type = "image/*"
-            activity!!.startActivityForResult(intent, SOLICITUD_SELECCIONAR_FOTO)
-
+         //   activity!!.startActivityForResult(intent, SOLICITUD_SELECCIONAR_FOTO)
+            startActivityForResult(Intent.createChooser(intent,"Seleccionar una foto"),SOLICITUD_SELECCIONAR_FOTO)
         }
+        viewFragment.etFullName.setText("Camilo")
+        viewFragment.etCellPhone.setText("3209296233")
+        viewFragment.etEmail.setText("juancamilocudi@gmail.com")
+        viewFragment.etRegisterPassword.setText("1234567890")
+        viewFragment.etRegisterRepeatPassword.setText("1234567890")
 
         return viewFragment
 
@@ -84,7 +90,7 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     override fun getView(): View = viewFragment
     override fun getConditions(): Boolean = cbConditions.isChecked
     override fun getPhoto(): Bitmap = bitmap
-
+    override fun getContext(): Context = activity!!.applicationContext
     override fun showError(errorMessage: String) {
         /* etFullName.error="Debe digitar algo no se"
          Toast.makeText(activity?.applicationContext,"Debe digitar el $errorMessage",Toast.LENGTH_SHORT).show()*/

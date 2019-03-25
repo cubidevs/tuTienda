@@ -1,5 +1,6 @@
 package com.example.tutienda.register
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
@@ -18,6 +19,7 @@ interface IRegisterMVP {
         fun showSucces(succesMessage:String)
         fun getConditions():Boolean
         fun getPhoto(): Bitmap
+        fun getContext(): Context
     }
     interface presenter{
         fun registerButtonClicked()
@@ -26,6 +28,6 @@ interface IRegisterMVP {
 
     interface model{
         fun sendUser(fullName: String, email: String, cell: String, password: String, urlPhoto: Uri)
-        fun userCreated(user: User)
+        fun userCreated(user: User,uriPhoto:Uri)
     }
 }

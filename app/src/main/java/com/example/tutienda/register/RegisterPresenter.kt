@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream
 class RegisterPresenter() :IRegisterMVP.presenter{
 
 
-    private val SOLICITUD_SELECCIONAR_FOTO=2
+
     private lateinit var view:IRegisterMVP.view
     private lateinit var model:IRegisterMVP.model
     private lateinit var uri:Uri
@@ -25,7 +25,7 @@ class RegisterPresenter() :IRegisterMVP.presenter{
         var validateCode= ValidateFields().getValideRegister(view.getFullName(),view.getEmail(),view.getCell(),
             view.getPassword(),view.getRepeatPassword(),view.getConditions())
 
-
+        val uri= getImageUri(view.getContext(),view.getPhoto())
 
         if (validateCode==ValidateFields().CORRECT_DATA){
             model.sendUser(view.getFullName(),view.getEmail(),view.getCell(),
@@ -36,7 +36,7 @@ class RegisterPresenter() :IRegisterMVP.presenter{
 
     }
     override fun getUriPhoto() {
-        uri = getImageUri(TuTienda().getAppContext(),view.getPhoto())
+        uri = getImageUri(TuTienda().getAppContext()!!,view.getPhoto())
     }
 
 
