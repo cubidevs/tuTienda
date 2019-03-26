@@ -1,17 +1,15 @@
 package com.example.tutienda.Util
 
-import android.content.Context
+
 import android.graphics.Color
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.Toast
 import com.example.tutienda.R
 import java.util.regex.Pattern
 
-class ValidateFields() {
+class ValidateFields {
 
     val CORRECT_DATA:Int = 100
     private val EMPTY_FUllNAME:Int =101
@@ -24,7 +22,6 @@ class ValidateFields() {
     private val INCOMPLETE_CELL = 108
     private val SHORT_PASSWORD = 109
     private val NO_ACCEPT_CONDITIONS = 110
-
     private val MINIMUN_FIELD=3
     private val MINIMUN_CELL_NUMBER= 10
     private val MINIMUN_CHARACTER_PASSWORD=6
@@ -67,10 +64,6 @@ class ValidateFields() {
         }
         return CORRECT_DATA
     }
-/*
-    fun toast(context: Context,text:String){
-        Toast.makeText(context, text,Toast.LENGTH_SHORT).show()
-    }*/
 
     fun getIdError(state:Int):Int{
         var error:Int=0
@@ -146,13 +139,7 @@ class ValidateFields() {
                 checkBox=view.findViewById(idView)
                 checkBox.setTextColor(Color.RED)
                 checkBox.error=labError
-               // editText = view.findViewById(idView)
-               // editText.setTextColor(Color.RED)
             }
-
         }
-
     }
-
-
 }

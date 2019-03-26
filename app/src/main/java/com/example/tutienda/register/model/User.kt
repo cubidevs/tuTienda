@@ -7,5 +7,4 @@ class User (var fullName:String, var email:String, var cellPhone:String, var pas
     constructor( fullName:String,  email:String,  cellPhone:String,  password:String, urlPhoto:String) : this(fullName,email,cellPhone,password){
         this.urlPhoto=urlPhoto
     }
-
 }

@@ -2,7 +2,6 @@ package com.example.tutienda.register
 
 import android.net.Uri
 import com.example.tutienda.register.model.User
-
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
@@ -11,7 +10,6 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.storage.UploadTask
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.FirebaseDatabase
-
 
 class RegisterRepository:IRegisterRepository{
 
@@ -64,7 +62,6 @@ class RegisterRepository:IRegisterRepository{
         }else{
             saveUserInDataBase("NoPhoto",user)
         }
-
     }
 
     fun saveUserInDataBase(urlPhoto:String,user:User){
@@ -77,5 +74,4 @@ class RegisterRepository:IRegisterRepository{
                 Log.d("USUARIO_CREADO",user.toString())
             }
     }
-
 }

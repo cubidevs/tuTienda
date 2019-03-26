@@ -1,6 +1,5 @@
 package com.example.tutienda.register.ui
 
-
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -22,9 +21,7 @@ import java.io.BufferedInputStream
 import java.io.FileNotFoundException
 import java.io.InputStream
 
-
 class RegisterFragment : Fragment(), IRegisterMVP.view {
-
 
     private val SOLICITUD_SELECCIONAR_FOTO = 2
     private lateinit var viewFragment: View
@@ -34,7 +31,6 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         viewFragment = inflater.inflate(com.example.tutienda.R.layout.fragment_register, container, false)
         presenter = RegisterPresenter(this)
         viewFragment.bRegister.setOnClickListener {
@@ -53,16 +49,12 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
         viewFragment.etEmail.setText("juancamilocudi@gmail.com")
         viewFragment.etRegisterPassword.setText("1234567890")
         viewFragment.etRegisterRepeatPassword.setText("1234567890")
-
         return viewFragment
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode === SOLICITUD_SELECCIONAR_FOTO && resultCode === RESULT_OK) {
-
             if (data == null) {
                 Toast.makeText(activity!!.applicationContext, "ERROR Cargando Foto", Toast.LENGTH_SHORT).show()
             } else {
@@ -77,7 +69,6 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
                 } catch (e: FileNotFoundException) {
                     e.printStackTrace()
                 }
-
             }
         }
     }
@@ -92,13 +83,10 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     override fun getPhoto(): Bitmap = bitmap
     override fun getContext(): Context = activity!!.applicationContext
     override fun showError(errorMessage: String) {
-        /* etFullName.error="Debe digitar algo no se"
-         Toast.makeText(activity?.applicationContext,"Debe digitar el $errorMessage",Toast.LENGTH_SHORT).show()*/
-
     }
-
     override fun showSucces(succesMessage: String) {
         Toast.makeText(activity?.applicationContext, succesMessage, Toast.LENGTH_SHORT).show()
 
     }
 }
+

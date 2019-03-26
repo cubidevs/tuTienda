@@ -21,6 +21,7 @@ interface IRegisterMVP {
         fun getPhoto(): Bitmap
         fun getContext(): Context
     }
+
     interface presenter{
         fun registerButtonClicked()
         fun getUriPhoto()

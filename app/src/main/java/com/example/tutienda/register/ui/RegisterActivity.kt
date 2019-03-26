@@ -21,11 +21,9 @@ class RegisterActivity : AppCompatActivity() {
     private val REQUEST_STORAGE = 1
     private val REQUEST_PHONE = 2
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
 
         val fragmentManager: FragmentManager = supportFragmentManager
         var fragment:Fragment? =fragmentManager.findFragmentById(R.id.flRegister)
@@ -35,7 +33,6 @@ class RegisterActivity : AppCompatActivity() {
             fragmentManager.beginTransaction().replace(R.id.flRegister,fragment).commit()
         }
         checkSternalStoragePermission()
-
     }
 
     private fun checkSternalStoragePermission() {
@@ -77,7 +74,6 @@ class RegisterActivity : AppCompatActivity() {
                 checkSternalStoragePermission()
             }
         }
-
     }
-
 }
+

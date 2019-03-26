@@ -10,8 +10,6 @@ import java.io.ByteArrayOutputStream
 
 class RegisterPresenter() :IRegisterMVP.presenter{
 
-
-
     private lateinit var view:IRegisterMVP.view
     private lateinit var model:IRegisterMVP.model
     private lateinit var uri:Uri
@@ -38,7 +36,6 @@ class RegisterPresenter() :IRegisterMVP.presenter{
     override fun getUriPhoto() {
         uri = getImageUri(TuTienda().getAppContext()!!,view.getPhoto())
     }
-
 
     private fun getImageUri(context: Context, inImage: Bitmap): Uri {
         val bytes = ByteArrayOutputStream()

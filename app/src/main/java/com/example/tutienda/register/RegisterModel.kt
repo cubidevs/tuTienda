@@ -13,17 +13,13 @@ class RegisterModel:IRegisterMVP.model {
     constructor(presenter: IRegisterMVP.presenter){
         this.presenter=presenter
         repository=RegisterRepository(this)
-
     }
     override fun sendUser(fullName: String, email: String, cell: String, password: String, uriPhoto: Uri) {
         this.uriPhoto=uriPhoto
         user=User(fullName,email,cell,password)
         repository.createUser(user,uriPhoto)
-
-
     }
     override fun userCreated(user: User, uriPhoto: Uri) {
         repository.savePhoto(uriPhoto,user)
     }
-
 }

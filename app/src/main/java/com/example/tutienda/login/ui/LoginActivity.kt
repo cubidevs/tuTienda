@@ -1,4 +1,4 @@
-package com.example.tutienda.login
+package com.example.tutienda.login.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
