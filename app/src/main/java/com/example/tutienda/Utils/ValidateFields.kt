@@ -65,6 +65,22 @@ class ValidateFields {
         return CORRECT_DATA
     }
 
+    fun getValideLogin(email: String, password: String): Int {
+        if  (email.isEmpty()){
+            return EMPTY_EMAIL
+        }
+        if  (!valideEmail(email.trim())){
+            return INVALID_EMAIL
+        }
+        if (password.isEmpty()){
+            return EMPTY_PASSWORD
+        }
+        if (password.length < MINIMUN_CHARACTER_PASSWORD){
+            return SHORT_PASSWORD
+        }
+        return CORRECT_DATA
+    }
+
     fun getIdError(state:Int):Int{
         var error:Int=0
         when(state){
@@ -142,4 +158,6 @@ class ValidateFields {
             }
         }
     }
+
+
 }
