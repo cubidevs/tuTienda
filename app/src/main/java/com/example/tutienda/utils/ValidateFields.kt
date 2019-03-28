@@ -1,4 +1,4 @@
-package com.example.tutienda.Util
+package com.example.tutienda.utils
 
 
 import android.graphics.Color

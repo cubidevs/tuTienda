@@ -20,4 +20,5 @@
     <string name="short_field_password">La contrasena debe tener minimo 6 caracteres</string>
     <string name="different_field_password">Las contrasena no coinciden</string>
     <string name="need_accept_conditions">Debe aceptar los terminos y condiciones</string>
+    <string name="existing_email">El correo que ingresaste ya se encuentra registrado</string>
 </resources>

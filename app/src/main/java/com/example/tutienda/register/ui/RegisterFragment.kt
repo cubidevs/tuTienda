@@ -26,7 +26,7 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     private val SOLICITUD_SELECCIONAR_FOTO = 2
     private lateinit var viewFragment: View
     private lateinit var presenter: IRegisterMVP.presenter
-    private lateinit var bitmap:Bitmap
+    private var bitmap:Bitmap?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +35,6 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
         presenter = RegisterPresenter(this)
         viewFragment.bRegister.setOnClickListener {
             presenter.registerButtonClicked()
-
         }
 
         viewFragment.ivProfilePhoto.setOnClickListener {
@@ -79,12 +78,20 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     override fun getRepeatPassword(): String = etRegisterRepeatPassword.text.toString()
     override fun getView(): View = viewFragment
     override fun getConditions(): Boolean = cbConditions.isChecked
-    override fun getPhoto(): Bitmap = bitmap
+    override fun getPhoto(): Bitmap? {
+        return if (bitmap !=null){
+            bitmap
+        }else{
+            null
+        }
+    }
     override fun getContext(): Context = activity!!.applicationContext
     override fun showError(errorMessage: String) {
     }
     override fun showSucces(succesMessage: String) {
         Toast.makeText(activity?.applicationContext, succesMessage, Toast.LENGTH_SHORT).show()
     }
+    override fun closeFragment() = activity!!.onBackPressed()
+
 }
 

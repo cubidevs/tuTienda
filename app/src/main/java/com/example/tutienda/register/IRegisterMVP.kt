@@ -18,8 +18,9 @@ interface IRegisterMVP {
         fun showError(errorMessage: String)
         fun showSucces(succesMessage:String)
         fun getConditions():Boolean
-        fun getPhoto(): Bitmap
+        fun getPhoto(): Bitmap?
         fun getContext(): Context
+        fun closeFragment()
     }
 
     interface presenter{
@@ -28,7 +29,7 @@ interface IRegisterMVP {
     }
 
     interface model{
-        fun sendUser(fullName: String, email: String, cell: String, password: String, urlPhoto: Uri)
-        fun userCreated(user: User,uriPhoto:Uri)
+        fun sendUser(fullName: String, email: String, cell: String, password: String, urlPhoto: Uri?)
+        fun userCreated(user: User, uriPhoto: Uri?)
     }
 }
