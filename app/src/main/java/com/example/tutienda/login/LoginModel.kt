@@ -18,5 +18,7 @@ class LoginModel : ILoginMVP.model {
         presenter.loginSuccesfull()
     }
 
-
+    override fun sendMessageError(errorMessage: String) {
+        presenter.sendMessageError(errorMessage)
+    }
 }
