@@ -28,4 +28,5 @@
 		</font>
 	</string>
 	<string name="welcomeMessage">Bienvenido</string>
+	<string name="check_internet_connection">Revisa tu conexión a internet</string>
 </resources>

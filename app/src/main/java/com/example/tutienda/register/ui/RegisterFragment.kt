@@ -40,8 +40,13 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     ): View? {
         viewFragment = inflater.inflate(com.example.tutienda.R.layout.fragment_register, container, false)
         presenter = RegisterPresenter(this)
+
         viewFragment.bRegister.setOnClickListener {
-            presenter.registerButtonClicked()
+            if(ValidateFields().isNetworkAvailable(activity!!.applicationContext)){
+                presenter.registerButtonClicked()
+            }else{
+                Toast.makeText(activity!!.applicationContext,R.string.check_internet_connection,Toast.LENGTH_SHORT).show()
+            }
         }
 
         viewFragment.ivProfilePhoto.setOnClickListener {
@@ -111,8 +116,7 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     }
 
     fun navigateToMainActivity() {
-        val intent = Intent(activity?.applicationContext, MainActivity::class.java)
-        startActivity(intent)
+        IntentHelper().goToMainActivity(activity!!.applicationContext, MainActivity::class.java)
         activity?.finish()
     }
 }
