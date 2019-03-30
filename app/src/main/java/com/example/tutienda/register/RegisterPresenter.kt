@@ -5,42 +5,63 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import com.example.tutienda.Util.ValidateFields
-import com.example.tutienda.root.TuTienda
+import com.example.tutienda.utils.Constants
 import java.io.ByteArrayOutputStream
 
-class RegisterPresenter() :IRegisterMVP.presenter{
+class RegisterPresenter() : IRegisterMVP.presenter {
 
-    private lateinit var view:IRegisterMVP.view
-    private lateinit var model:IRegisterMVP.model
-    private lateinit var uri:Uri
+    private lateinit var view: IRegisterMVP.view
+    private lateinit var model: IRegisterMVP.model
+    private var uri: Uri? = null
+
     constructor(view: IRegisterMVP.view) : this() {
-        this.view=view
-        model=RegisterModel(this)
+        this.view = view
+        model = RegisterModel(this)
     }
 
     override fun registerButtonClicked() {
+        view.showProgressView()
+        var validateCode = ValidateFields().getValideRegister(
+            view.getFullName(), view.getEmail(), view.getCellPhone(),
+            view.getPassword(), view.getRepeatPassword(), view.getConditions()
+        )
 
-        var validateCode= ValidateFields().getValideRegister(view.getFullName(),view.getEmail(),view.getCell(),
-            view.getPassword(),view.getRepeatPassword(),view.getConditions())
-
-        val uri= getImageUri(view.getContext(),view.getPhoto())
-
-        if (validateCode==ValidateFields().CORRECT_DATA){
-            model.sendUser(view.getFullName(),view.getEmail(),view.getCell(),
-                view.getPassword(),uri)
-        }else{
-            ValidateFields().setErrorField(validateCode, view.getView())
+        if (view.getPhoto() != null) {
+            uri = getImageUri(view.getContext(), view.getPhoto()!!)
+        } else {
+            uri = null
         }
 
+        if (validateCode == Constants.CORRECT_DATA) {
+            model.sendUser(view.getFullName(), view.getEmail(), view.getCellPhone(), view.getPassword(), uri)
+        } else {
+            ValidateFields().setErrorField(validateCode, view.getView())
+            view.hideProgressView()
+        }
     }
+
     override fun getUriPhoto() {
-        uri = getImageUri(TuTienda().getAppContext()!!,view.getPhoto())
+        if (view.getPhoto() != null) {
+            uri = getImageUri(view.getContext(), view.getPhoto()!!)
+        } else {
+            uri = null
+        }
     }
 
     private fun getImageUri(context: Context, inImage: Bitmap): Uri {
         val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 30, bytes)
-        val path = MediaStore.Images.Media.insertImage(context.contentResolver, inImage, "Title", null)
+        inImage.compress(Bitmap.CompressFormat.JPEG, Constants.QUALITY, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, inImage, Constants.TITLE, null)
         return Uri.parse(path)
+    }
+
+    override fun userSavedInDataBase() {
+        view.hideProgressView()
+        view.showSucces(Constants.USER_CREATED)
+    }
+
+    override fun sendMessageError(errorMessage: String) {
+        view.hideProgressView()
+        view.showError(errorMessage)
     }
 }

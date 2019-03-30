@@ -1,10 +1,8 @@
 package com.example.tutienda.register.model
 
-class User (var fullName:String, var email:String, var cellPhone:String, var password:String){
+class User(var fullName: String, var email: String, var cellPhone: String) {
 
-    var urlPhoto=""
+    var urlPhoto = ""
+    var uid = ""
 
-    constructor( fullName:String,  email:String,  cellPhone:String,  password:String, urlPhoto:String) : this(fullName,email,cellPhone,password){
-        this.urlPhoto=urlPhoto
-    }
 }

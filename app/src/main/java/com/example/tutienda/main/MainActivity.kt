@@ -1,7 +1,8 @@
-package com.example.tutienda
+package com.example.tutienda.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.tutienda.R
 
 class MainActivity : AppCompatActivity() {
 
