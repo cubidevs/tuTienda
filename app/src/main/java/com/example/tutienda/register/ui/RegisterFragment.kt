@@ -15,10 +15,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.tutienda.main.MainActivity
 import com.example.tutienda.R
+import com.example.tutienda.Util.ValidateFields
 import com.example.tutienda.register.IRegisterMVP
 import com.example.tutienda.register.RegisterPresenter
 
 import com.example.tutienda.utils.Constants
+import com.example.tutienda.utils.IntentHelper
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.view.*
 import kotlinx.android.synthetic.main.progress_view.*
@@ -38,8 +40,13 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     ): View? {
         viewFragment = inflater.inflate(com.example.tutienda.R.layout.fragment_register, container, false)
         presenter = RegisterPresenter(this)
+
         viewFragment.bRegister.setOnClickListener {
-            presenter.registerButtonClicked()
+            if(ValidateFields().isNetworkAvailable(activity!!.applicationContext)){
+                presenter.registerButtonClicked()
+            }else{
+                Toast.makeText(activity!!.applicationContext,R.string.check_internet_connection,Toast.LENGTH_SHORT).show()
+            }
         }
 
         viewFragment.ivProfilePhoto.setOnClickListener {
@@ -91,11 +98,11 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     override fun getContext(): Context = activity!!.applicationContext
 
     override fun showProgressView() {
-        progress_view.setVisibility(View.VISIBLE)
+        progress_view.visibility = View.VISIBLE
     }
 
     override fun hideProgressView() {
-        progress_view.setVisibility(View.GONE)
+        progress_view.visibility = View.GONE
     }
 
     override fun showError(errorMessage: String) {
@@ -109,8 +116,8 @@ class RegisterFragment : Fragment(), IRegisterMVP.view {
     }
 
     fun navigateToMainActivity() {
-        val intent = Intent(activity?.applicationContext, MainActivity::class.java)
-        startActivity(intent)
+        IntentHelper().goToMainActivity(activity!!.applicationContext, MainActivity::class.java)
         activity?.finish()
     }
 }
+
