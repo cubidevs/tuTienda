@@ -13,12 +13,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.tutienda.main.MainActivity
+import com.example.tutienda.main.ui.MainActivity
 import com.example.tutienda.R
 import com.example.tutienda.Util.ValidateFields
 import com.example.tutienda.register.IRegisterMVP
 import com.example.tutienda.register.RegisterPresenter
-
 import com.example.tutienda.utils.Constants
 import com.example.tutienda.utils.IntentHelper
 import kotlinx.android.synthetic.main.fragment_register.*

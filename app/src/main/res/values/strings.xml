@@ -29,4 +29,7 @@
 	</string>
 	<string name="welcomeMessage">Bienvenido</string>
 	<string name="check_internet_connection">Revisa tu conexión a internet</string>
+	<string name="close_session">Cerrar sesión</string>
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
