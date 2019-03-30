@@ -6,6 +6,7 @@ interface IMainMVP {
 
     interface view{
         fun getContext():Context
+        fun outApp()
     }
 
     interface presenter{
