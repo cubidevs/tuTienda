@@ -44,4 +44,7 @@ dependencies {
 
     //SmoothProgressBar
     implementation "com.github.castorflex.smoothprogressbar:library:$smoothprogressbar_version"
+
+    //New Material Design
+    implementation "com.google.android.material:material:1.0.0"
 }
