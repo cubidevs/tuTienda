@@ -12,9 +12,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.tutienda.main.MainActivity
 import com.example.tutienda.R
+import com.example.tutienda.Util.ValidateFields
 import com.example.tutienda.login.ILoginMVP
 import com.example.tutienda.login.LoginPresenter
 import com.example.tutienda.register.ui.RegisterActivity
+import com.example.tutienda.utils.IntentHelper
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.progress_view.*
@@ -35,7 +37,11 @@ class LoginFragment : Fragment(), ILoginMVP.view {
         }
 
         viewFragment.bLogin.setOnClickListener {
-            presenter.loginButtonClicked()
+            if(ValidateFields().isNetworkAvailable(activity!!.applicationContext)){
+                presenter.loginButtonClicked()
+            }else{
+                Toast.makeText(activity!!.applicationContext,R.string.check_internet_connection,Toast.LENGTH_SHORT).show()
+            }
         }
 
         return viewFragment
@@ -51,17 +57,16 @@ class LoginFragment : Fragment(), ILoginMVP.view {
     }
 
     override fun navigateToMainActivity() {
-        val intent = Intent(activity?.applicationContext, MainActivity::class.java)
-        startActivity(intent)
+        IntentHelper().goToMainActivity(activity!!.applicationContext,MainActivity::class.java)
         activity?.finish()
     }
 
     override fun showProgressView() {
-        progress_view.setVisibility(VISIBLE)
+        progress_view.visibility = VISIBLE
     }
 
     override fun hideProgressView() {
-        progress_view.setVisibility(GONE)
+        progress_view.visibility = GONE
     }
 
     override fun showWelcomeMessage() {

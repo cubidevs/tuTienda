@@ -1,6 +1,9 @@
 package com.example.tutienda.Util
 
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.util.Patterns
 import android.view.View
 import android.widget.CheckBox
@@ -10,6 +13,13 @@ import com.example.tutienda.utils.Constants
 import java.util.regex.Pattern
 
 class ValidateFields {
+
+    fun isNetworkAvailable(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var activeNetworkInfo: NetworkInfo?
+        activeNetworkInfo = cm.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
+    }
 
     fun valideEmail(email:String):Boolean{
         var pattern: Pattern = Patterns.EMAIL_ADDRESS
