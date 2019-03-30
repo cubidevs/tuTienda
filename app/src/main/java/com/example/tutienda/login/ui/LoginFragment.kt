@@ -77,5 +77,4 @@ class LoginFragment : Fragment(), ILoginMVP.view {
         val intent = Intent(activity?.applicationContext, RegisterActivity::class.java)
         startActivity(intent)
     }
-
 }
