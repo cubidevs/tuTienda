@@ -2,15 +2,15 @@ package com.example.tutienda.login.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.tutienda.main.MainActivity
+import com.example.tutienda.main.ui.MainActivity
 import com.example.tutienda.R
 import com.example.tutienda.Util.ValidateFields
 import com.example.tutienda.login.ILoginMVP
@@ -43,7 +43,6 @@ class LoginFragment : Fragment(), ILoginMVP.view {
                 Toast.makeText(activity!!.applicationContext,R.string.check_internet_connection,Toast.LENGTH_SHORT).show()
             }
         }
-
         return viewFragment
     }
 
@@ -57,16 +56,17 @@ class LoginFragment : Fragment(), ILoginMVP.view {
     }
 
     override fun navigateToMainActivity() {
-        IntentHelper().goToMainActivity(activity!!.applicationContext,MainActivity::class.java)
+        IntentHelper().goToMainActivity(activity!!.applicationContext, MainActivity::class.java)
         activity?.finish()
+        activity!!.fragmentManager.popBackStack()
     }
 
     override fun showProgressView() {
-        progress_view.visibility = VISIBLE
+        viewFragment.progress_view.visibility = VISIBLE
     }
 
     override fun hideProgressView() {
-        progress_view.visibility = GONE
+        viewFragment.progress_view.visibility = GONE
     }
 
     override fun showWelcomeMessage() {
