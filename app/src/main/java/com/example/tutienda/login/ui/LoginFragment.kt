@@ -1,5 +1,6 @@
 package com.example.tutienda.login.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -49,6 +50,7 @@ class LoginFragment : Fragment(), ILoginMVP.view {
     override fun getPassword(): String = etRegisterPassword.text.toString()
     override fun getEmail(): String = etEmail.text.toString()
     override fun getView(): View = viewFragment
+    override fun getContext(): Context = viewFragment.context
 
     override fun showError(errorMessage: String) {
         Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG)
