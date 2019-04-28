@@ -1,15 +1,11 @@
 package com.example.tutienda.login
 
-class LoginModel : ILoginMVP.model {
+import com.example.tutienda.data.SessionManager
+import com.example.tutienda.register.model.User
 
-    private var repository: ILoginRepository
-    private var presenter: ILoginMVP.presenter
+class LoginModel(private var presenter: ILoginMVP.presenter) : ILoginMVP.model {
 
-    constructor(presenter: ILoginMVP.presenter){
-        this.presenter = presenter
-        repository = LoginRepository(this)
-    }
-
+    private var repository: ILoginRepository = LoginRepository(this)
     override fun sendCredentials(email: String, password: String) {
         repository.login(email,password)
     }
@@ -20,5 +16,9 @@ class LoginModel : ILoginMVP.model {
 
     override fun sendMessageError(errorMessage: String) {
         presenter.sendMessageError(errorMessage)
+    }
+
+    override fun saveUser(user: User) {
+        SessionManager(presenter.sendContext()).saveUserLogin(user)
     }
 }

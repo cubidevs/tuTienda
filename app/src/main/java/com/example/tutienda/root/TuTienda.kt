@@ -4,15 +4,23 @@ import android.app.Application
 import android.content.Context
 
 class TuTienda : Application() {
-
-    private var appContext: Context? = null
-
+    private var sContext: Context? = null
+    private var sInstance: TuTienda? = null
     override fun onCreate() {
         super.onCreate()
-        appContext = applicationContext
+        setAppContext(this)
     }
 
-    fun getAppContext(): Context? {
-        return appContext
+    fun getContext(): Context? {
+        return sContext
     }
+
+    fun getInstance(): TuTienda {
+        return sInstance!!
+    }
+
+    fun setAppContext(context: Context) {
+        sContext = context
+    }
+
 }
